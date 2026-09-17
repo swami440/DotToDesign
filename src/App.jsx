@@ -1,12 +1,10 @@
 ﻿import React from 'react'
-import StringsSection from './components/StringsSection'
-import LoadingAnimation from './components/LoadingAnimation'
+import Home from './pages/Home'
 
 const App = () => {
   return (
     <div>
-      {/* <StringsSection/> */}
-      {/* <LoadingAnimation /> */}
+      <Home />
     </div>
   )
 }
