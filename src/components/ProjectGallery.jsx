@@ -7,11 +7,18 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * ProjectGallery
  * ----------------------------------------------------------------------------
- * A "bento" style project grid where every image reveals by scaling up from
- * one corner to its full size as it scrolls into view (GSAP + ScrollTrigger).
- * Each card can vary in grid size, vertical offset (for that loose, masonry
- * feel), and which corner it grows from -- matching the reference layout
- * where some tiles are fully grown and others are still mid-reveal.
+ * A "bento" style project grid where each image reveals by actually GROWING
+ * in size (real width/height, not a CSS transform: scale) from one corner
+ * out to fill its frame, as it scrolls into view (GSAP + ScrollTrigger).
+ *
+ * Why real sizing instead of transform scale: the <img> is pinned to one
+ * corner of its frame (e.g. top/left: 0) and its own width/height animate
+ * from a small percentage up to 100%. Since both dimensions grow at the
+ * same rate, the frame's aspect ratio is preserved the whole time -- it
+ * just gets physically bigger from that corner, rather than a full-size
+ * image being transform-scaled up (which is what caused the previous,
+ * wrong-looking result). The frame itself has no background of any kind --
+ * only the image is visible, clipped by the frame's overflow while small.
  *
  * Data shape (pass your own list via the `projects` prop):
  *   {
@@ -23,7 +30,7 @@ gsap.registerPlugin(ScrollTrigger);
  *     rowSpan?: number,             // grid rows to span (default 2)
  *     offsetY?: number,             // px, shifts the tile up/down for a scattered feel
  *     corner?: "top-left" | "top-right" | "bottom-left" | "bottom-right",
- *     startScale?: number,          // how small the image starts (default 0.15)
+ *     startSize?: number,           // 0-1, how small the image starts (default random ~0.15-0.3)
  *   }
  *
  * Usage:
@@ -35,14 +42,59 @@ gsap.registerPlugin(ScrollTrigger);
  * ----------------------------------------------------------------------------
  */
 
-const CORNER_ORIGIN = {
-  "top-left": "0% 0%",
-  "top-right": "100% 0%",
-  "bottom-left": "0% 100%",
-  "bottom-right": "100% 100%",
+// Which two sides get pinned to 0 for each corner (the other two stay "auto",
+// so growth visibly comes from the pinned corner).
+const CORNER_ANCHOR = {
+  "top-left": { top: 0, left: 0, right: "auto", bottom: "auto" },
+  "top-right": { top: 0, right: 0, left: "auto", bottom: "auto" },
+  "bottom-left": { bottom: 0, left: 0, top: "auto", right: "auto" },
+  "bottom-right": { bottom: 0, right: 0, top: "auto", left: "auto" },
 };
 
-const CORNERS = Object.keys(CORNER_ORIGIN);
+const CORNERS = Object.keys(CORNER_ANCHOR);
+
+const DEFAULT_PROJECTS = [
+  {
+    id: 1,
+    src: "./assets/favicon.svg",
+    alt: "Vite project preview",
+    label: "Vite build",
+    colSpan: 4,
+    rowSpan: 2,
+    offsetY: -8,
+    corner: "top-left",
+  },
+  {
+    id: 2,
+    src: "./assets/favicon.svg",
+    alt: "Brand identity preview",
+    label: "Brand identity",
+    colSpan: 4,
+    rowSpan: 2,
+    offsetY: 8,
+    corner: "top-right",
+  },
+  {
+    id: 3,
+    src: "./assets/favicon.svg",
+    alt: "App interface preview",
+    label: "Interface design",
+    colSpan: 4,
+    rowSpan: 2,
+    offsetY: -6,
+    corner: "bottom-left",
+  },
+  {
+    id: 4,
+    src: "./assets/favicon.svg",
+    alt: "Marketing visual preview",
+    label: "Campaign system",
+    colSpan: 8,
+    rowSpan: 2,
+    offsetY: 12,
+    corner: "bottom-right",
+  },
+];
 
 // Deterministic pseudo-random so repeated renders (and SSR) stay consistent.
 function mulberry32(seed) {
@@ -56,7 +108,7 @@ function mulberry32(seed) {
 }
 
 export default function ProjectGallery({
-  projects = [],
+  projects = DEFAULT_PROJECTS,
   columns = 12,
   rowHeight = 110,
   gap = 24,
@@ -77,22 +129,21 @@ export default function ProjectGallery({
       const items = gsap.utils.toArray(".pg-image", containerRef.current);
 
       items.forEach((img, i) => {
-        const startScale = parseFloat(img.dataset.startScale) || 0.15;
-        const origin = img.dataset.origin || "0% 0%";
+        const startSize = parseFloat(img.dataset.startSize) || 0.2;
 
+        // Set actual box size (not transform) -- this is what grows.
         gsap.set(img, {
-          scale: startScale,
-          transformOrigin: origin,
-          willChange: "transform",
+          width: `${startSize * 100}%`,
+          height: `${startSize * 100}%`,
         });
 
         if (scrub) {
-          // Growth is tied directly to scroll position within the trigger range.
           gsap.fromTo(
             img,
-            { scale: startScale },
+            { width: `${startSize * 100}%`, height: `${startSize * 100}%` },
             {
-              scale: 1,
+              width: "100%",
+              height: "100%",
               ease: "none",
               scrollTrigger: {
                 trigger: img.closest(".pg-frame"),
@@ -103,10 +154,9 @@ export default function ProjectGallery({
             }
           );
         } else {
-          // One-shot reveal: grows once when the card enters view, and can
-          // reverse if scrolled back up past it.
           gsap.to(img, {
-            scale: 1,
+            width: "100%",
+            height: "100%",
             duration,
             ease,
             delay: (i % 3) * (stagger * 0.5), // gentle stagger for cards entering together
@@ -135,9 +185,10 @@ export default function ProjectGallery({
         ...style,
       }}
     >
-      {projects.map((p, i) => {
+      {projects.map((p) => {
         const corner = p.corner || CORNERS[Math.floor(rand.current() * CORNERS.length)];
-        const startScale = p.startScale ?? 0.12 + rand.current() * 0.1;
+        const startSize = p.startSize ?? 0.15 + rand.current() * 0.15;
+        const anchor = CORNER_ANCHOR[corner];
 
         return (
           <div
@@ -159,21 +210,16 @@ export default function ProjectGallery({
                 width: "100%",
                 height: "100%",
                 overflow: "hidden",
-                background: "#0a0a0a",
-                borderRadius: 4,
               }}
             >
               <img
                 className="pg-image"
                 src={p.src}
                 alt={p.alt || p.label || ""}
-                data-start-scale={startScale}
-                data-origin={CORNER_ORIGIN[corner]}
+                data-start-size={startSize}
                 style={{
                   position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
+                  ...anchor,
                   objectFit: "cover",
                   display: "block",
                 }}

@@ -87,12 +87,9 @@ function buildLayout(points, scatterRadius, seed) {
       sy: ty + jitterY,
       tx,
       ty,
-      startR: 2 + rand() * 6.5,
+      startR: 2.6 + rand() * 1.6,
       endR: 2.6 + rand() * 1.6,
-      startOpacity: 0.28 + rand() * 0.5,
-      // Randomizes *when* (across the scroll range) this dot starts
-      // moving toward its target -- this is what makes the assembly
-      // feel organic instead of every dot snapping together at once.
+      // Preserve the fixed dot opacity instead of animating it during the reveal.
       phase: rand() * 0.55,
     };
   });
@@ -111,13 +108,30 @@ export default function DotLogo({
   wanderMinDuration = 0.7,
   wanderMaxDuration = 1.6,
   settledWanderScale = 0.25, // ambient motion kept once a dot has assembled (0 = fully still)
+  hoverScatter = 22,
+  hoverRadius = 120,
   className = "",
   style = {},
 }) {
   const containerRef = useRef(null);
   const dotRefs = useRef([]);
+  const pointerRef = useRef({ x: 0, y: 0, active: false });
   const [layout] = useState(() => buildLayout(TARGET_POINTS, scatterRadius, seed));
   const progressRef = useRef(0);
+
+  const handlePointerMove = (event) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = ((event.clientX - rect.left) / rect.width) * LOGO_VIEWBOX.width;
+    const y = ((event.clientY - rect.top) / rect.height) * LOGO_VIEWBOX.height;
+
+    pointerRef.current = { x, y, active: true };
+  };
+
+  const handlePointerLeave = () => {
+    pointerRef.current.active = false;
+  };
 
   useLayoutEffect(() => {
     const dots = dotRefs.current;
@@ -165,6 +179,8 @@ export default function DotLogo({
     // write straight to the SVG attributes (cheap, avoids extra tweens).
     function render() {
       const globalP = progressRef.current;
+      const pointer = pointerRef.current;
+
       for (let i = 0; i < dots.length; i++) {
         const el = dots[i];
         if (!el) continue;
@@ -174,15 +190,30 @@ export default function DotLogo({
         const local = easeOutCubic(clamp01((globalP - d.phase) / (1 - d.phase)));
         const wanderScale = lerp(1, settledWanderScale, local);
 
-        const cx = lerp(d.sx, d.tx, local) + w.x * wanderScale;
-        const cy = lerp(d.sy, d.ty, local) + w.y * wanderScale;
+        let cx = lerp(d.sx, d.tx, local) + w.x * wanderScale;
+        let cy = lerp(d.sy, d.ty, local) + w.y * wanderScale;
+
+        if (pointer.active) {
+          const dx = cx - pointer.x;
+          const dy = cy - pointer.y;
+          const dist = Math.hypot(dx, dy);
+          const influence = Math.max(0, 1 - dist / hoverRadius);
+
+          if (influence > 0) {
+            const push = hoverScatter * influence * influence;
+            const nx = dist > 0 ? dx / dist : 0;
+            const ny = dist > 0 ? dy / dist : 0;
+            cx += nx * push;
+            cy += ny * push;
+          }
+        }
+
         const r = Math.max(0.4, lerp(d.startR, d.endR, local) + w.r * wanderScale);
-        const opacity = lerp(d.startOpacity, 1, local);
 
         el.setAttribute("cx", cx.toFixed(2));
         el.setAttribute("cy", cy.toFixed(2));
         el.setAttribute("r", r.toFixed(2));
-        el.style.opacity = opacity;
+        el.style.opacity = "1";
       }
     }
 
@@ -195,18 +226,21 @@ export default function DotLogo({
       progressTween.scrollTrigger && progressTween.scrollTrigger.kill();
       progressTween.kill();
     };
-  }, [layout, start, end, scrub, wanderAmount, wanderMinDuration, wanderMaxDuration, settledWanderScale]);
+  }, [layout, start, end, scrub, wanderAmount, wanderMinDuration, wanderMaxDuration, settledWanderScale, hoverScatter, hoverRadius]);
 
   return (
     <div
       ref={containerRef}
       className={className}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
       style={{
         position: "relative",
         width,
         maxWidth,
         aspectRatio: `${LOGO_VIEWBOX.width} / ${LOGO_VIEWBOX.height}`,
         margin: "0 auto",
+        cursor: "pointer",
         ...style,
       }}
     >
