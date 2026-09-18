@@ -181,7 +181,7 @@ export default function Services() {
                 {col.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="font-['Plus_Jakarta_Sans',sans-serif] text-[12px] sm:text-[13px] md:text-[14px] font-bold tracking-tight text-neutral-900 hover:text-neutral-500 transition-colors duration-200 cursor-default uppercase leading-snug"
+                    className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] text-[12px] sm:text-[13px] md:text-[14px] font-bold tracking-tight text-neutral-900 hover:text-neutral-500 transition-colors duration-200 cursor-default uppercase leading-snug"
                   >
                     {item}
                   </div>
