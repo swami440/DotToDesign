@@ -56,7 +56,7 @@ const CORNERS = Object.keys(CORNER_ANCHOR);
 const DEFAULT_PROJECTS = [
   {
     id: 1,
-    src: "./assets/favicon.svg",
+    src: "https://hobro.digital/media/images/cases/case-dv-bg.webp",
     alt: "Vite project preview",
     label: "Vite build",
     colSpan: 4,

@@ -1,10 +1,14 @@
 import React from "react";
+import Hero from "../sections/Hero";
+import Services from "../sections/Services";
 import DotLogo from "../components/DotLogo";
 import ProjectGallery from "../components/ProjectGallery";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-white text-neutral-900 min-h-screen">
+      <Hero />
+      <Services />
       <section
         style={{
           minHeight: "135vh",
