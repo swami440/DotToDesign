@@ -144,7 +144,7 @@ export default function Services() {
               {/* "WHAT" - Hollow / Stroked Classical Serif */}
               <div
                 ref={whatRef}
-                className="stroke-text z-4 font-['Cormorant_Garamond',Georgia,serif] text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
+                className="stroke-text z-4 font-['FreigBigProLigIta',Arial,sans-serif] italic text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
               >
                 WHAT
               </div>
@@ -152,7 +152,7 @@ export default function Services() {
               {/* "WE" - Bold Black Sans-Serif Overlapping "WHAT" */}
               <div
                 ref={weRef}
-                className="font-['Syne',sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] md:-ml-[7vw] lg:-ml-[6vw] "
+                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] md:-ml-[7vw] lg:-ml-[6vw] "
               >
                 WE
               </div>
@@ -162,7 +162,7 @@ export default function Services() {
             <div className="flex justify-end pr-[4vw] sm:pr-[10vw] md:pr-[16vw] lg:pr-[20vw] -mt-[2vw] sm:-mt-[3vw] relative z-10">
               <div
                 ref={doRef}
-                className="font-['Syne',sans-serif] font-black text-[15vw] sm:text-[13vw] md:text-[12vw] lg:text-[11vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block"
+                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[15vw] sm:text-[13vw] md:text-[12vw] lg:text-[11vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block"
               >
                 DO
               </div>
