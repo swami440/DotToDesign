@@ -31,7 +31,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full h-screen min-h-[650px] overflow-hidden bg-white flex flex-col justify-between select-none">
+    <section id="top" className="relative w-full h-screen min-h-[650px] overflow-hidden bg-white flex flex-col justify-between select-none">
       {/* 1. Cinematic Background Video with atmospheric Tailwind gradient overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <video

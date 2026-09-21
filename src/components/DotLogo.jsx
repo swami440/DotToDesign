@@ -29,7 +29,7 @@ gsap.registerPlugin(ScrollTrigger);
  *     dots arrive at randomized moments across the scroll range.
  *   - Independently of scroll, every dot runs an infinite GSAP "wander"
  *     loop -- tweening a small random offset (x/y/size) with a new random
- *     target + duration each time it completes -- which is what gives the
+ *     target + duration each time it completeal;so s -- which is what gives the
  *     continuous, non-static organic motion. This keeps running for the
  *     lifetime of the component; its amplitude just gets dialed down
  *     (via `settledWanderScale`) once a dot is assembled, rather than
@@ -80,7 +80,7 @@ function buildLayout(points, scatterRadius, seed) {
 
   return points.map(([tx, ty]) => {
     const jitterX = (rand() - 0.5) * width * scatterRadius;
-    const jitterY = (rand() - 0.5) * height * scatterRadius * 1.6;
+    const jitterY = (rand() - 0.5) * height * scatterRadius;
 
     return {
       sx: tx + jitterX,
@@ -90,7 +90,7 @@ function buildLayout(points, scatterRadius, seed) {
       startR: 2.6 + rand() * 1.6,
       endR: 2.6 + rand() * 1.6,
       // Preserve the fixed dot opacity instead of animating it during the reveal.
-      phase: rand() * 0.55,
+      // phase: rand() * 0.55,
     };
   });
 }
@@ -144,7 +144,7 @@ export default function DotLogo({
       wanderTweens[i] = gsap.to(wander[i], {
         x: gsap.utils.random(-wanderAmount, wanderAmount),
         y: gsap.utils.random(-wanderAmount, wanderAmount),
-        r: gsap.utils.random(-wanderAmount * 0.35, wanderAmount * 0.35),
+        r: gsap.utils.random(-wanderAmount , wanderAmount),
         duration: gsap.utils.random(wanderMinDuration, wanderMaxDuration),
         ease: "sine.inOut",
         onComplete: () => loopWander(i),

@@ -89,7 +89,7 @@ export default function Services() {
         weRef.current,
         {
           x: "68vw",
-          opacity: 0.3,
+          opacity: 1,
         },
         {
           x: "0vw",
@@ -104,7 +104,7 @@ export default function Services() {
         doRef.current,
         {
           x: "95vw",
-          opacity: 0.2,
+          opacity: 1,
         },
         {
           x: "0vw",
@@ -140,11 +140,11 @@ export default function Services() {
         <div className="relative w-full py-4 sm:py-8 overflow-visible">
           <div className="flex flex-col relative">
             {/* Top row: WHAT + WE */}
-            <div className="flex items-baseline relative z-10">
+            <div className="flex items-baseline relative z-4">
               {/* "WHAT" - Hollow / Stroked Classical Serif */}
               <div
                 ref={whatRef}
-                className="stroke-text z-4 font-['FreigBigProLigIta',Arial,sans-serif] italic text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
+                className="stroke-text z-20 font-serif italic text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
               >
                 WHAT
               </div>
@@ -152,7 +152,7 @@ export default function Services() {
               {/* "WE" - Bold Black Sans-Serif Overlapping "WHAT" */}
               <div
                 ref={weRef}
-                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] md:-ml-[7vw] lg:-ml-[6vw] "
+                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] z-10 md:-ml-[7vw] lg:-ml-[6vw] "
               >
                 WE
               </div>

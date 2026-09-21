@@ -3,13 +3,16 @@ import Hero from "../sections/Hero";
 import Services from "../sections/Services";
 import DotLogo from "../components/DotLogo";
 import ProjectGallery from "../components/ProjectGallery";
+import Header from "../components/Header";
 
 export default function Home() {
   return (
     <main className="bg-white text-neutral-900 min-h-screen">
+      <Header />
       <Hero />
       <Services />
       <section
+        id="about"
         style={{
           minHeight: "135vh",
           display: "grid",
@@ -21,6 +24,7 @@ export default function Home() {
       </section>
 
       <section
+        id="work"
         style={{
           maxWidth: 1200,
           margin: "0 auto",
