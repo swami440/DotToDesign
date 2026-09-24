@@ -4,7 +4,7 @@ import Services from "../sections/Services";
 import DotLogo from "../components/DotLogo";
 import ProjectGallery from "../components/ProjectGallery";
 import Header from "../components/Header";
-import Testing from "./testing";
+import Testing from "../sections/Testing";
 
 export default function Home() {
   return (
