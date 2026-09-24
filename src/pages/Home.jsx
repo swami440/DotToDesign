@@ -4,6 +4,7 @@ import Services from "../sections/Services";
 import DotLogo from "../components/DotLogo";
 import ProjectGallery from "../components/ProjectGallery";
 import Header from "../components/Header";
+import Testing from "./testing";
 
 export default function Home() {
   return (
@@ -11,7 +12,9 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <section
+      <Testing />
+      {/* <Services /> */}
+      {/* <section
         id="about"
         style={{
           minHeight: "135vh",
@@ -21,9 +24,8 @@ export default function Home() {
         }}
       >
         <DotLogo hoverScatter={40} hoverRadius={35} />
-      </section>
-
-      <section
+      </section> */}
+      {/* <section
         id="work"
         style={{
           maxWidth: 1200,
@@ -32,7 +34,7 @@ export default function Home() {
         }}
       >
         <ProjectGallery />
-      </section>
+      </section> */}
     </main>
   );
 }
