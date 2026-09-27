@@ -227,7 +227,7 @@ export default function Header() {
     >
       <div
         ref={boxRef}
-       className="absolute top-3 overflow-hidden rounded-[10px] bg-white/40 backdrop-blur-xl backdrop-saturate-150 shadow-[0_12px_32px_rgba(28,20,16,0.16),0_2px_8px_rgba(28,20,16,0.08)] ring-1 ring-inset ring-white/30 border border-white/20 transition-[width,height,left] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+       className="absolute top-3 overflow-hidden rounded-[10px] bg-white/40 backdrop-blur-xl backdrop-saturate-150 transition-[width,height,left] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
         style={GEOMETRY[mode]}
       >
         {/* ------------------------------ Top bar ------------------------------ */}

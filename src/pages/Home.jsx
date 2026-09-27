@@ -4,6 +4,9 @@ import Services from "../sections/Services";
 import DotLogo from "../components/DotLogo";
 import ProjectGallery from "../components/ProjectGallery";
 import Header from "../components/Header";
+import Testimonials from "../components/Testimonials";
+import Faq from "../sections/Faq";
+import Footer from "../sections/Footer";
 import Testing from "../sections/Testing";
 
 export default function Home() {
@@ -12,7 +15,10 @@ export default function Home() {
       <Header />
       <Hero />
       <Services />
-      <Testing />
+      <Testimonials />
+      <Faq />
+      <Footer />
+      {/* <Testing /> */}
       {/* <Services /> */}
       {/* <section
         id="about"
