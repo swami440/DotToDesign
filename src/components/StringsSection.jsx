@@ -115,11 +115,11 @@ export default function StringsSection({ count = 6, className = "" }) {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className={`relative h-[40vh] w-full overflow-hidden bg-neutral-950 ${className}`}
+      className={`relative h-[40vh] w-full overflow-hidden bg-black ${className}`}
     >
       <svg
         ref={svgRef}
-        className="absolute inset-0 h-full w-full text-neutral-400"
+        className="absolute inset-0 h-full w-full text-[#A6A6A6]"
         preserveAspectRatio="none"
       >
         {Array.from({ length: count }).map((_, i) => (
@@ -129,7 +129,7 @@ export default function StringsSection({ count = 6, className = "" }) {
             stroke="currentColor"
             strokeWidth="1.5"
             fill="none"
-            className="transition-[stroke] duration-300 hover:text-neutral-100"
+            className="transition-[stroke] duration-300 hover:text-white"
             vectorEffect="non-scaling-stroke"
           />
         ))}

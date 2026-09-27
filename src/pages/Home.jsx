@@ -8,15 +8,19 @@ import Testimonials from "../components/Testimonials";
 import Faq from "../sections/Faq";
 import Footer from "../sections/Footer";
 import Testing from "../sections/Testing";
+import CallToAction from "../sections/CallToAction";
+import Work from "../sections/Work";
 
 export default function Home() {
   return (
     <main className="bg-white text-neutral-900 min-h-screen">
       <Header />
       <Hero />
-      <Services />
+      {/* <Services /> */}
+      <Work />
       <Testimonials />
       <Faq />
+      <CallToAction />
       <Footer />
       {/* <Testing /> */}
       {/* <Services /> */}

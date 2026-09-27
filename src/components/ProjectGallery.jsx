@@ -234,7 +234,7 @@ export default function ProjectGallery({
                     "'JetBrains Mono', 'Roboto Mono', ui-monospace, SFMono-Regular, Menlo, monospace",
                   fontSize: 13,
                   letterSpacing: "0.04em",
-                  color: "#8a8a8a",
+                  color: "#A6A6A6",
                   textTransform: "uppercase",
                 }}
               >

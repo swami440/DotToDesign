@@ -15,10 +15,10 @@ const DEFAULT_TESTIMONIAL = {
   video: defaultVideo,
 };
 
-const LIME = "#dcff91";
-const CARD = "#e9e9e9";
+const LIME = "#ff0000";
+// const CARD = "#e9e9e9";
 const INK = "#171413";
-const MUTED = "#9c9c9c";
+const MUTED = "#ff0000";
 const SANS = "font-['PPNeueMontreal',Helvetica,Arial,sans-serif]";
 
 function QuoteMark() {
@@ -60,7 +60,7 @@ function Avatar({ src, name }) {
   return (
     <span
       aria-hidden="true"
-      className={`${size} grid place-items-center ${SANS} text-[11px] font-medium text-[#dcff91]`}
+      className={`${size} grid place-items-center ${SANS} text-[11px] font-medium text-white`}
       style={{ backgroundColor: INK }}
     >
       {initials}
@@ -113,8 +113,8 @@ export default function Testimonials({
         )}
 
         <figure
-          className={`absolute inset-x-4 bottom-4  flex flex-col rounded-[10px] p-5 sm:inset-x-auto sm:bottom-[5%] sm:left-[4%] sm:w-[72%] sm:p-7 md:w-[60%] lg:w-[46%] lg:p-9 xl:w-[38%] xl:p-10 2xl:w-[33.5%] 2xl:p-12`}
-          style={{ backgroundColor: CARD }}
+          className={`absolute inset-x-4 bottom-4  flex flex-col rounded-[10px] p-5 sm:inset-x-auto sm:bottom-[5%] sm:left-[4%] sm:w-[72%] sm:p-7 md:w-[60%] lg:w-[46%] lg:p-9 xl:w-[38%] xl:p-10 2xl:w-[33.5%] 2xl:p-12  bg-white/40 backdrop-blur-xl backdrop-saturate-150 transition-[width,height,left] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none`}
+          
         >
           <span
             className="flex h-8 w-8 items-center justify-center rounded-[4px] sm:h-10 sm:w-10 lg:h-12 lg:w-12 2xl:h-14 2xl:w-14"
@@ -147,7 +147,7 @@ export default function Testimonials({
               >
                 {testimonial.name}
               </p>
-              <p className="truncate text-[11px] sm:text-[12px] 2xl:text-[14px]" style={{ color: MUTED }}>
+              <p className="truncate text-[11px] sm:text-[12px] 2xl:text-[14px]" style={{ color: '#ff0000' }}>
                 {testimonial.role}
               </p>
             </div>
@@ -159,8 +159,8 @@ export default function Testimonials({
             type="button"
             onClick={togglePlayback}
             aria-label={playing ? "Pause testimonial video" : "Play testimonial video"}
-            className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-[8px] transition-colors duration-200 hover:bg-[#dcff91] sm:right-[4%] sm:top-auto sm:bottom-[6%] sm:h-14 sm:w-14 lg:h-16 lg:w-16 2xl:h-[104px] 2xl:w-[104px]"
-            style={{ backgroundColor: "#ffffff", color: INK }}
+            className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-[8px] transition-colors duration-200 hover:bg-[#FF0000] sm:right-[4%] sm:top-auto sm:bottom-[6%] sm:h-14 sm:w-14 lg:h-16 lg:w-16 2xl:h-[104px] 2xl:w-[104px]"
+            style={{ backgroundColor: "#ffffff", color: '#ff0000' }}
           >
             <PlaybackIcon playing={playing} />
           </button>

@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const NAV_COLUMNS = [
@@ -23,11 +23,11 @@ const SOCIAL_LINKS = [
 const SANS = "font-['PPNeueMontreal',Helvetica,Arial,sans-serif]";
 const MONO = "font-['Space_Grotesk',monospace]";
 
-const LIME = "#dcff91";
-const SURFACE = "#0a0a0a";
-const BODY_GRAY = "#9a9a9a";
+const LIME = "#FF0000";
+const SURFACE = "#000000";
+const BODY_GRAY = "#A6A6A6";
 const LABEL_GRAY = "#d4d4d4";
-const HAIRLINE = "rgba(255,255,255,0.16)";
+const HAIRLINE = "rgba(255,255,255,0.12)";
 
 const SEAL_POINTS = Array.from({ length: 48 }, (_, i) => {
   const angle = (i / 48) * Math.PI * 2;
@@ -87,10 +87,10 @@ function OnePercentBadge() {
       style={{ fontFamily: "inherit" }}
     >
       <circle cx="55" cy="46" r="41" fill="currentColor" />
-      <text x="44" y="63" textAnchor="middle" fontSize="50" fontWeight="700" fill="#0a0a0a">
+      <text x="44" y="63" textAnchor="middle" fontSize="50" fontWeight="700" fill="#000000">
         1
       </text>
-      <text x="72" y="42" fontSize="19" fontWeight="700" fill="#0a0a0a">
+      <text x="72" y="42" fontSize="19" fontWeight="700" fill="#000000">
         %
       </text>
       <text x="55" y="108" textAnchor="middle" fontSize="16" fontWeight="800" fill="currentColor">
@@ -151,6 +151,92 @@ function CleanCreativesBadge() {
         C
       </text>
     </svg>
+  );
+}
+
+function RollingChars({ text, hoverColor }) {
+  const words = text.split(" ");
+  let charCounter = 0;
+
+  return (
+    <span className="rolling-chars-wrap" aria-hidden="true">
+      {words.map((word, wordIndex) => (
+        <span key={wordIndex} className="rolling-word">
+          {word.split("").map((char, charIndex) => {
+            const delay = `${charCounter * 20}ms`;
+            charCounter++;
+            return (
+              <span key={charIndex} className="rolling-char-box">
+                <span
+                  className="rolling-char-top"
+                  style={{ transitionDelay: delay }}
+                >
+                  {char}
+                </span>
+                <span
+                  className="rolling-char-bottom"
+                  style={{
+                    transitionDelay: delay,
+                    color: hoverColor || "inherit",
+                  }}
+                  aria-hidden="true"
+                >
+                  {char}
+                </span>
+              </span>
+            );
+          })}
+          {wordIndex < words.length - 1 && (
+            <span className="inline-block">&nbsp;</span>
+          )}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function RollingLink({
+  href,
+  onClick,
+  target,
+  rel,
+  children,
+  className = "",
+  style = {},
+  hoverColor = "#ff0000",
+  underlineColor,
+  trailing,
+}) {
+  const isString = typeof children === "string";
+
+  return (
+    <a
+      href={href}
+      onClick={onClick}
+      target={target}
+      rel={rel}
+      className={`rolling-link ${className}`}
+      style={style}
+    >
+      <span className="rolling-link-content">
+        {isString ? (
+          <>
+            <span className="rolling-link-sr">{children}</span>
+            <RollingChars text={children} hoverColor={hoverColor} />
+          </>
+        ) : (
+          children
+        )}
+        <span
+          className="rolling-underline"
+          style={{
+            backgroundColor: underlineColor || hoverColor || "currentColor",
+          }}
+          aria-hidden="true"
+        />
+      </span>
+      {trailing}
+    </a>
   );
 }
 
@@ -224,16 +310,29 @@ export default function Footer({
                 restore, regenerate, and reshape our future for the better.
               </p>
 
-              <a
-                href="#impact-report"
-                className={`${SANS} mt-10 inline-flex flex-wrap items-center gap-x-5 text-[clamp(1.6rem,3.1vw,3.1rem)] leading-[1.1] tracking-[-0.035em] sm:mt-12`}
-              >
-                <span className="transition-colors duration-300 hover:text-white" style={{ color: BODY_GRAY }}>
+              <div className="mt-10 inline-flex flex-wrap items-center gap-x-6 sm:mt-12">
+                <RollingLink
+                  href="#impact-report"
+                  className={`${SANS} text-[clamp(1.6rem,3.1vw,3.1rem)] leading-[1.1] tracking-[-0.035em]`}
+                  style={{ color: BODY_GRAY }}
+                  hoverColor="#ff0000"
+                  underlineColor="#ff0000"
+                >
                   Impact Report
-                </span>
-                <span className="transition-opacity duration-300 hover:opacity-70">Screening</span>
-                <ArrowUpRight className="h-[0.55em] w-[0.55em] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </a>
+                </RollingLink>
+                <RollingLink
+                  href="#impact-report"
+                  className={`${SANS} text-[clamp(1.6rem,3.1vw,3.1rem)] leading-[1.1] tracking-[-0.035em]`}
+                  style={{ color: "#ff0000" }}
+                  hoverColor="#ff0000"
+                  underlineColor="#ff0000"
+                  trailing={
+                    <ArrowUpRight className="h-[0.55em] w-[0.55em] transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  }
+                >
+                  Screening
+                </RollingLink>
+              </div>
             </motion.div>
           </div>
 
@@ -265,30 +364,36 @@ export default function Footer({
               {NAV_COLUMNS.map((column, columnIndex) => (
                 <div key={columnIndex} className="flex flex-col gap-2.5 sm:gap-3">
                   {column.map((link) => (
-                    <a
+                    <RollingLink
                       key={link.label}
                       href={link.href}
-                      className={`${SANS} w-fit text-[clamp(1.05rem,1.7vw,1.55rem)] leading-[1.5] tracking-[-0.03em] transition-opacity duration-200 hover:opacity-60`}
+                      className={`${SANS} text-[clamp(1.05rem,1.7vw,1.55rem)] leading-[1.5] tracking-[-0.03em]`}
                       style={{ color: BODY_GRAY }}
+                      hoverColor="#ff0000"
+                      underlineColor="#ff0000"
                     >
                       {link.label}
-                    </a>
+                    </RollingLink>
                   ))}
 
                   {columnIndex === 1 && (
-                    <a
+                    <RollingLink
                       href="#contact"
-                      className={`${SANS} mt-1 inline-flex w-fit items-center gap-3 text-[clamp(1.05rem,1.7vw,1.55rem)] leading-[1.5] tracking-[-0.03em] transition-opacity duration-200 hover:opacity-70`}
+                      className={`${SANS} mt-1 text-[clamp(1.05rem,1.7vw,1.55rem)] leading-[1.5] tracking-[-0.03em]`}
                       style={{ color: LIME }}
+                      hoverColor={LIME}
+                      underlineColor={LIME}
+                      trailing={
+                        <span
+                          className="rolling-arrow-box grid h-6 w-6 place-items-center rounded-[3px] sm:h-7 sm:w-7"
+                          style={{ backgroundColor: LIME, color: SURFACE }}
+                        >
+                          <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        </span>
+                      }
                     >
                       Book an intro
-                      <span
-                        className="grid h-6 w-6 place-items-center rounded-[3px] sm:h-7 sm:w-7"
-                        style={{ backgroundColor: LIME, color: SURFACE }}
-                      >
-                        <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                      </span>
-                    </a>
+                    </RollingLink>
                   )}
                 </div>
               ))}
@@ -305,14 +410,16 @@ export default function Footer({
 
             <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:gap-4">
               {SOCIAL_LINKS.map((link) => (
-                <a
+                <RollingLink
                   key={link.label}
                   href={link.href}
-                  className={`${SANS} w-fit text-[clamp(1.5rem,3.4vw,3.1rem)] leading-[1.15] tracking-[-0.04em] transition-opacity duration-200 hover:opacity-60`}
+                  className={`${SANS} text-[clamp(1.5rem,3.4vw,3.1rem)] leading-[1.15] tracking-[-0.04em]`}
                   style={{ color: BODY_GRAY }}
+                  hoverColor="#ff0000"
+                  underlineColor="#ff0000"
                 >
                   {link.label}
-                </a>
+                </RollingLink>
               ))}
             </div>
           </div>
@@ -341,14 +448,16 @@ export default function Footer({
             {copyright}
           </p>
 
-          <a
+          <RollingLink
             href="#top"
             onClick={scrollToTop}
-            className={`${SANS} w-fit text-[clamp(0.9rem,1.2vw,1.15rem)] tracking-[-0.02em] transition-opacity duration-200 hover:opacity-60 md:justify-self-end`}
+            className={`${SANS} text-[clamp(0.9rem,1.2vw,1.15rem)] tracking-[-0.02em] md:justify-self-end`}
             style={{ color: LABEL_GRAY }}
+            hoverColor="#ff0000"
+            underlineColor="#ff0000"
           >
             Back to top
-          </a>
+          </RollingLink>
         </div>
       </div>
     </footer>

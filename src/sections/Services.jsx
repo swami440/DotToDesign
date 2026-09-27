@@ -125,12 +125,12 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative w-full bg-white text-black py-20 sm:py-28 lg:py-36 px-6 sm:px-10 lg:px-16 overflow-hidden select-none"
+      className="relative w-full bg-black text-white py-20 sm:py-28 lg:py-36 px-6 sm:px-10 lg:px-16 overflow-hidden select-none"
     >
       <div className="max-w-7xl mx-auto">
         {/* Top descriptor text (top-right) */}
         <div className="w-full flex justify-end mb-6 sm:mb-10">
-          <p className="max-w-[290px] sm:max-w-[340px] text-xs sm:text-sm md:text-[15px] font-normal text-neutral-800 leading-snug tracking-tight text-right md:text-left">
+          <p className="max-w-[290px] sm:max-w-[340px] text-xs sm:text-sm md:text-[15px] font-normal text-[#A6A6A6] leading-snug tracking-tight text-right md:text-left">
             We build standout digital products and experiences that move our clients’
             brands forward.
           </p>
@@ -144,7 +144,7 @@ export default function Services() {
               {/* "WHAT" - Hollow / Stroked Classical Serif */}
               <div
                 ref={whatRef}
-                className="stroke-text z-20 font-serif italic text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
+                className="stroke-text-white z-20 font-serif italic text-[16vw] sm:text-[16vw] md:text-[16vw] lg:text-[16vw] leading-[1] tracking-tight select-none uppercase font-light inline-block"
               >
                 WHAT
               </div>
@@ -152,7 +152,7 @@ export default function Services() {
               {/* "WE" - Bold Black Sans-Serif Overlapping "WHAT" */}
               <div
                 ref={weRef}
-                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] z-10 md:-ml-[7vw] lg:-ml-[6vw] "
+                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[14vw] sm:text-[14vw] md:text-[14vw] lg:text-[14vw] leading-[0.82] tracking-tight text-white select-none uppercase inline-block -ml-[9vw] sm:-ml-[8vw] z-10 md:-ml-[7vw] lg:-ml-[6vw] "
               >
                 WE
               </div>
@@ -162,7 +162,7 @@ export default function Services() {
             <div className="flex justify-end pr-[4vw] sm:pr-[10vw] md:pr-[16vw] lg:pr-[20vw] -mt-[2vw] sm:-mt-[3vw] relative z-10">
               <div
                 ref={doRef}
-                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[15vw] sm:text-[13vw] md:text-[12vw] lg:text-[11vw] leading-[0.82] tracking-tight text-black select-none uppercase inline-block"
+                className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] font-black text-[15vw] sm:text-[13vw] md:text-[12vw] lg:text-[11vw] leading-[0.82] tracking-tight text-white select-none uppercase inline-block"
               >
                 DO
               </div>
@@ -173,7 +173,7 @@ export default function Services() {
         {/* Bottom Services 4-Column Grid */}
         <div
           ref={listRef}
-          className="mt-16 sm:mt-24 pt-8 sm:pt-10 border-t border-neutral-200"
+          className="mt-16 sm:mt-24 pt-8 sm:pt-10 border-t border-white/15"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
             {SERVICE_COLUMNS.map((col) => (
@@ -181,7 +181,7 @@ export default function Services() {
                 {col.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] text-[12px] sm:text-[13px] md:text-[14px] font-bold tracking-tight text-neutral-900 hover:text-neutral-500 transition-colors duration-200 cursor-default uppercase leading-snug"
+                    className="font-['PPNeueMontreal',Helvetica,Arial,sans-serif] text-[12px] sm:text-[13px] md:text-[14px] font-bold tracking-tight text-[#A6A6A6] hover:text-white transition-colors duration-200 cursor-default uppercase leading-snug"
                   >
                     {item}
                   </div>

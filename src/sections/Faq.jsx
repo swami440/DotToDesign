@@ -35,7 +35,7 @@ const INK = "#171413";
 const HEADLINE_GRAY = "#a3a3a3";
 const BODY_GRAY = "#8a8a8a";
 const DIVIDER = "#d9d9d9";
-const LIME = "#dcff91";
+const LIME = "#ff0000";
 
 function Arrow({ open }) {
   return (
@@ -47,9 +47,8 @@ function Arrow({ open }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
-      className={`h-5 w-5 transition-transform duration-300 ease-out motion-reduce:transition-none ${
-        open ? "rotate-180" : ""
-      }`}
+      className={`h-5 w-5 transition-transform duration-300 ease-out motion-reduce:transition-none ${open ? "rotate-180" : ""
+        }`}
     >
       <path d="M12 4v16" />
       <path d="m6 14 6 6 6-6" />

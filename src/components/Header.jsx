@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
+import RollingLink from "./RollingLink";
 
 
 const NAV_LINKS = [
@@ -22,12 +23,12 @@ const SOCIAL_LINKS = [
 
 
 
-const BAR_HEIGHT = 60; 
+const BAR_HEIGHT = 60;
 const TOP_ZONE = 24;
-const COMPACT_AFTER = 140; 
-const HIDE_INTENT = 28; 
-const SHOW_INTENT = 52; 
-const CLOSE_ON_SCROLL = 48; 
+const COMPACT_AFTER = 140;
+const HIDE_INTENT = 28;
+const SHOW_INTENT = 52;
+const CLOSE_ON_SCROLL = 48;
 
 
 const GEOMETRY = {
@@ -52,7 +53,11 @@ const RING =
   "outline-none focus-visible:ring-2 focus-visible:ring-[#171413]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#eee5e0]";
 
 const CTA =
-  "group flex h-[42px] items-center gap-3 rounded-[4px] bg-[#dcff91] px-4 text-[13px] font-medium tracking-[-0.04em] text-[#171a13] transition-colors hover:bg-[#c9f777]";
+  "group flex h-[42px] items-center gap-3 rounded-[4px] bg-[#ff0000] px-4 text-[13px] font-medium tracking-[-0.04em] text-[#171a13] transition-colors hover:bg-[#c9f777]";
+
+const ACCENT = "#ff0000";
+
+const DOT = "absolute h-1.5 w-1.5 rounded-full bg-[#ff5b5e]";
 
 
 const readScrollY = () => {
@@ -134,9 +139,13 @@ export default function Header() {
       const y = readScrollY();
 
       if (open) {
+        if (y > openAnchorRef.current) {
+          openAnchorRef.current = y;
+        }
         const moved = y - openAnchorRef.current;
-        if (Math.abs(moved) >= CLOSE_ON_SCROLL) {
-          closeMenu(moved > 0 && y > TOP_ZONE);
+        // Only close when scrolling up / to top, never on scroll to bottom
+        if (moved <= -CLOSE_ON_SCROLL || (moved < 0 && y <= TOP_ZONE)) {
+          closeMenu(false);
         }
         return;
       }
@@ -208,9 +217,8 @@ export default function Header() {
   const barExpanded = mode === "wide";
 
   const itemMotion = (index) => ({
-    className: `shrink-0 transition-all ease-out motion-reduce:transition-none ${
-      open ? "translate-y-0 opacity-100 duration-500" : "translate-y-2 opacity-0 duration-200"
-    }`,
+    className: `shrink-0 transition-all ease-out motion-reduce:transition-none ${open ? "translate-y-0 opacity-100 duration-500" : "translate-y-2 opacity-0 duration-200"
+      }`,
     style: { transitionDelay: open ? `${160 + index * 45}ms` : "0ms" },
   });
   const footerMotion = itemMotion(MENU_LINKS.length);
@@ -221,13 +229,13 @@ export default function Header() {
       style={{
         top: "var(--top)",
         "--panel-w": "min(370px, calc(100vw - 2 * var(--gutter)))",
-    
+
         "--panel-h": "min(670px, calc(100dvh - var(--top) - var(--gutter)))",
       }}
     >
       <div
         ref={boxRef}
-       className="absolute top-3 overflow-hidden rounded-[10px] bg-white/40 backdrop-blur-xl backdrop-saturate-150 transition-[width,height,left] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+        className="absolute top-3 overflow-hidden rounded-[10px] bg-white/40 backdrop-blur-xl backdrop-saturate-150 transition-[width,height,left] duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
         style={GEOMETRY[mode]}
       >
         {/* ------------------------------ Top bar ------------------------------ */}
@@ -243,33 +251,33 @@ export default function Header() {
 
           <nav
             aria-label="Primary"
-            className={`absolute left-1/2 top-0 hidden h-[60px] -translate-x-1/2 items-center gap-9 transition-all duration-300 ease-out motion-reduce:transition-none md:flex ${
-              barExpanded
+            className={`absolute left-1/2 top-0 hidden h-[60px] -translate-x-1/2 items-center gap-9 transition-all duration-300 ease-out motion-reduce:transition-none md:flex ${barExpanded
                 ? "visible opacity-100 delay-200"
                 : "pointer-events-none invisible -translate-y-2 opacity-0"
-            }`}
+              }`}
           >
             {NAV_LINKS.map((link) => (
-              <a
+              <RollingLink
                 key={link.label}
                 href={link.href}
-                className={`relative text-[13px] font-medium tracking-[-0.03em] text-[#201c1a] transition-opacity hover:opacity-55 ${RING}`}
+                hoverColor={ACCENT}
+                underlineColor={ACCENT}
+                className={`text-[13px] font-medium tracking-[-0.03em] text-[#201c1a] ${RING}`}
+                badge={
+                  link.badge ? <span aria-hidden="true" className={`${DOT} -right-3 -top-1`} /> : null
+                }
               >
                 {link.label}
-                {link.badge && (
-                  <span aria-hidden="true" className="absolute -right-3 -top-1 h-1.5 w-1.5 rounded-full bg-[#ff5b5e]" />
-                )}
-              </a>
+              </RollingLink>
             ))}
           </nav>
 
-      
+
           <div
-            className={`absolute right-5 top-[9px] hidden transition-all duration-300 ease-out motion-reduce:transition-none sm:right-[4.5rem] sm:block md:right-6 ${
-              barExpanded
+            className={`absolute right-5 top-[9px] hidden transition-all duration-300 ease-out motion-reduce:transition-none sm:right-[4.5rem] sm:block md:right-6 ${barExpanded
                 ? "visible opacity-100 delay-200"
                 : "pointer-events-none invisible translate-x-2 opacity-0"
-            }`}
+              }`}
           >
             <a href="#contact" className={`${CTA} ${RING}`}>
               Book an intro
@@ -277,7 +285,7 @@ export default function Header() {
             </a>
           </div>
 
-       
+
           <button
             ref={toggleRef}
             type="button"
@@ -285,28 +293,25 @@ export default function Header() {
             aria-expanded={open}
             aria-controls="site-menu"
             onClick={toggleMenu}
-            className={`absolute right-4 top-2 grid h-11 w-11 place-items-center text-[#171413] transition-all duration-300 ease-out motion-reduce:transition-none ${RING} ${
-              isCompact || open
+            className={`absolute right-4 top-2 grid h-11 w-11 place-items-center text-[#171413] transition-all duration-300 ease-out motion-reduce:transition-none ${RING} ${isCompact || open
                 ? "md:delay-200"
                 : "md:pointer-events-none md:invisible md:translate-x-2 md:opacity-0"
-            }`}
+              }`}
           >
             <span aria-hidden="true" className="relative block h-2 w-5">
               <i
-                className={`absolute left-0 top-0 block h-px w-full bg-current transition-transform duration-300 ease-out motion-reduce:transition-none ${
-                  open ? "translate-y-[3.5px] rotate-45" : ""
-                }`}
+                className={`absolute left-0 top-0 block h-px w-full bg-current transition-transform duration-300 ease-out motion-reduce:transition-none ${open ? "translate-y-[3.5px] rotate-45" : ""
+                  }`}
               />
               <i
-                className={`absolute bottom-0 left-0 block h-px w-full bg-current transition-transform duration-300 ease-out motion-reduce:transition-none ${
-                  open ? "-translate-y-[3.5px] -rotate-45" : ""
-                }`}
+                className={`absolute bottom-0 left-0 block h-px w-full bg-current transition-transform duration-300 ease-out motion-reduce:transition-none ${open ? "-translate-y-[3.5px] -rotate-45" : ""
+                  }`}
               />
             </span>
           </button>
         </div>
 
-      
+
         <nav
           id="site-menu"
           aria-label="Menu"
@@ -324,19 +329,23 @@ export default function Header() {
               const motion = itemMotion(index);
               return (
                 <div key={link.label} className={motion.className} style={motion.style}>
-                  <a
+                  <RollingLink
                     ref={index === 0 ? firstLinkRef : undefined}
                     href={link.href}
                     onClick={() => handleMenuLink(link.href)}
-                    className={`relative inline-block text-[30px] leading-[1.16] tracking-[-0.06em] transition-opacity hover:opacity-55 ${RING} ${
+                    hoverColor={ACCENT}
+                    underlineColor={ACCENT}
+                    className={`text-[30px] leading-[1.16] mt-4 tracking-[-0.06em] ${RING} ${
                       link.accent ? "text-[#8d6844]" : "text-[#171413]"
                     }`}
+                    badge={
+                      link.badge ? (
+                        <span aria-hidden="true" className={`${DOT} -right-3 top-1`} />
+                      ) : null
+                    }
                   >
                     {link.label}
-                    {link.badge && (
-                      <span aria-hidden="true" className="absolute -right-3 top-1 h-1.5 w-1.5 rounded-full bg-[#ff5b5e]" />
-                    )}
-                  </a>
+                  </RollingLink>
                 </div>
               );
             })}
@@ -349,9 +358,16 @@ export default function Header() {
             <div className="flex items-center justify-between text-[13px] text-[#171413]">
               <div className="space-y-2">
                 {SOCIAL_LINKS.map((link) => (
-                  <a key={link.label} className={`block transition-opacity hover:opacity-55 ${RING}`} href={link.href}>
-                    {link.label}
-                  </a>
+                  <div key={link.label}>
+                    <RollingLink
+                      href={link.href}
+                      hoverColor={ACCENT}
+                      underlineColor={ACCENT}
+                      className={`text-[13px] text-[#171413] ${RING}`}
+                    >
+                      {link.label}
+                    </RollingLink>
+                  </div>
                 ))}
               </div>
               <div className="text-center text-[10px] font-bold leading-[0.95]">

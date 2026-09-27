@@ -31,7 +31,7 @@ export default function Hero() {
   };
 
   return (
-    <section id="top" className="relative w-full h-screen min-h-[650px] overflow-hidden bg-white flex flex-col justify-between select-none">
+    <section id="top" className="relative w-full h-screen min-h-[650px] overflow-hidden bg-black flex flex-col justify-between select-none">
       {/* 1. Cinematic Background Video with atmospheric Tailwind gradient overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <video
@@ -199,7 +199,7 @@ export default function Hero() {
               </button>
 
               <div className="text-left space-y-3">
-                <span className="font-['Space_Grotesk',monospace] text-[11px] tracking-[0.3em] uppercase text-cyan-400">
+                <span className="font-['Space_Grotesk',monospace] text-[11px] tracking-[0.3em] uppercase text-[#FF0000]">
                   DOT TO DESIGN STUDIO
                 </span>
                 <h3 className="font-['Syne',sans-serif] text-2xl sm:text-3xl font-bold uppercase text-white">
@@ -238,7 +238,7 @@ export default function Hero() {
                     </div>
                     <button
                       type="submit"
-                      className="w-full bg-white text-black font-['Space_Grotesk',monospace] font-bold text-xs uppercase tracking-[0.2em] py-3.5 rounded-xl hover:bg-neutral-200 active:scale-[0.99] transition-all cursor-pointer shadow-lg mt-2"
+                      className="w-full bg-[#FF0000] text-white font-['Space_Grotesk',monospace] font-bold text-xs uppercase tracking-[0.2em] py-3.5 rounded-xl hover:bg-[#cc0000] active:scale-[0.99] transition-all cursor-pointer shadow-lg mt-2"
                     >
                       Receive Capabilities Deck
                     </button>
