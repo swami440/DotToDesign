@@ -16,14 +16,13 @@ export default function Home() {
     <main className="bg-white text-neutral-900 min-h-screen">
       <Header />
       <Hero />
-      {/* <Services /> */}
       <Work />
+      <Services />
       <Testimonials />
       <Faq />
       <CallToAction />
       <Footer />
       {/* <Testing /> */}
-      {/* <Services /> */}
       {/* <section
         id="about"
         style={{

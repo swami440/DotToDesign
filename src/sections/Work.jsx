@@ -42,15 +42,15 @@ const projects = [
 
 export default function Work() {
   return (
-    <section id="work" className="w-full bg-[#FAFAF2] text-white py-16 sm:py-20 px-6 sm:px-10 lg:px-16 font-sans overflow-hidden">
+    <section id="work" className="w-full bg-white text-[#171413] py-16 sm:py-24 px-6 sm:px-10 lg:px-16 font-sans overflow-hidden">
       <div className="max-w-[1680px] mx-auto">
         
         {/* Section Header */}
-        <div className="mb-16 sm:mb-20 flex items-center justify-between border-b border-white/10 pb-4">
-          <span className="font-mono text-xs uppercase tracking-widest text-[#A6A6A6]">
-            Selected Work (<span className="text-[#FF0000]">0{projects.length}</span>)
+        <div className="mb-14 sm:mb-20 flex items-center justify-between border-b border-black/10 pb-4">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#737373]">
+            Selected Work (<span className="text-[#FF0000] font-semibold">0{projects.length}</span>)
           </span>
-          <span className="font-mono text-xs uppercase tracking-widest text-[#A6A6A6]">
+          <span className="font-mono text-xs uppercase tracking-widest text-[#737373]">
             Featured Projects
           </span>
         </div>
@@ -82,7 +82,7 @@ export default function Work() {
                         duration: 1.05,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className="relative w-full aspect-[16/13] overflow-hidden rounded-sm bg-[#111111] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.7)]"
+                      className="relative w-full aspect-[16/13] overflow-hidden rounded-sm bg-[#111111] border border-black/10 shadow-[0_16px_40px_rgba(0,0,0,0.06)] group-hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] transition-shadow duration-500"
                     >
                       <motion.img
                         src={project.image}
@@ -94,8 +94,9 @@ export default function Work() {
                           duration: 1.2,
                           ease: [0.16, 1, 0.3, 1],
                         }}
-                        className="w-full h-full object-cover transition-transform duration-700 ease-out"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                       />
+                      <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none" />
                     </motion.div>
 
                     {/* Project Details / Meta Row */}
@@ -112,10 +113,10 @@ export default function Work() {
                     >
                       {/* Left: Title & Subtitle */}
                       <div>
-                        <h3 className="text-2xl sm:text-3xl font-semibold tracking-tight text-white group-hover:text-white transition-colors">
+                        <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-[#171413] group-hover:text-[#FF0000] transition-colors duration-300">
                           {project.title}
                         </h3>
-                        <p className="mt-1 text-sm sm:text-base text-[#A6A6A6] font-light tracking-tight">
+                        <p className="mt-1.5 text-sm sm:text-base text-[#737373] font-light tracking-tight leading-relaxed">
                           {project.subtitle}
                         </p>
                       </div>
@@ -125,7 +126,7 @@ export default function Work() {
                         {project.tags.map((tag) => (
                           <span
                             key={tag}
-                            className="px-2.5 py-1 rounded-[3px] border border-white/15 text-[10px] sm:text-[11px] font-mono tracking-wider text-[#A6A6A6] uppercase bg-white/[0.04] select-none group-hover:border-[#FF0000]/60 group-hover:text-white transition-colors"
+                            className="px-2.5 py-1 rounded-[3px] border border-black/10 text-[10px] sm:text-[11px] font-mono tracking-wider text-[#737373] uppercase bg-black/[0.02] select-none group-hover:border-[#FF0000]/40 group-hover:text-[#171413] group-hover:bg-[#FF0000]/5 transition-all duration-300"
                           >
                             {tag}
                           </span>
@@ -138,7 +139,7 @@ export default function Work() {
 
                 {/* Smooth Animated Partition Line Between Projects */}
                 {idx < projects.length - 1 && (
-                  <div className="w-full overflow-hidden my-15 sm:my-12 lg:my-16">
+                  <div className="w-full overflow-hidden my-14 sm:my-16 lg:my-20">
                     <motion.div
                       initial={{ scaleX: 0, opacity: 0 }}
                       whileInView={{ scaleX: 1, opacity: 1 }}
@@ -147,7 +148,7 @@ export default function Work() {
                         duration: 1.15,
                         ease: [0.16, 1, 0.3, 1],
                       }}
-                      className="w-full h-[1px] bg-white/10 origin-left"
+                      className="w-full h-[1px] bg-black/10 origin-left"
                     />
                   </div>
                 )}

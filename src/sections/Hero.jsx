@@ -32,7 +32,7 @@ export default function Hero() {
 
   return (
     <section id="top" className="relative w-full h-screen min-h-[650px] overflow-hidden bg-black flex flex-col justify-between select-none">
-      {/* 1. Cinematic Background Video with atmospheric Tailwind gradient overlays */}
+      {/* 1. Cinematic Background Video with Film Tone Overlays */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <video
           ref={videoRef}
@@ -43,138 +43,122 @@ export default function Hero() {
           playsInline
           className="w-full h-full object-cover object-center scale-[1.02]"
         />
-        
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80" />
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
+        <div className="absolute inset-0 bg-black/25" />
       </div>
 
-      {/* Top spacer to balance layout since header was removed */}
-      <div className="relative z-10 w-full pt-8 sm:pt-12 pointer-events-none" />
+      {/* Top Spacer for floating header */}
+      <div className="relative z-10 w-full pt-16 pointer-events-none" />
 
-      {/* 2. Center Content: Giant Title, Metadata, and Dome Icon */}
+      {/* 2. Center Content: Bold Iconic Title & Studio Metadata */}
       <div className="relative z-10 w-full my-auto flex flex-col items-center justify-center px-4 text-center">
-        {/* Giant Hero Title: DOT TO DESIGN */}
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           className="w-full flex justify-center items-center"
         >
-          <h1 className="font-['Syne',sans-serif] font-black text-[13vw] sm:text-[12vw] md:text-[11vw] lg:text-[10.5vw] leading-[0.88] tracking-[-0.04em] uppercase text-white drop-shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-center w-full px-2">
+          <h1 className="font-['Syne',sans-serif] font-black text-[13vw] sm:text-[12vw] md:text-[11vw] lg:text-[10vw] leading-[0.88] tracking-[-0.04em] uppercase text-white drop-shadow-[0_12px_40px_rgba(0,0,0,0.85)] text-center w-full px-2">
             DOT TO DESIGN
           </h1>
         </motion.div>
 
-        {/* Agency Studio Details & Geodesic Wireframe Dome */}
+        {/* Clean Studio Sub-meta */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 sm:mt-6 flex flex-col items-center"
+          transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5 sm:mt-7 font-['Space_Grotesk',monospace] text-xs sm:text-sm tracking-[0.3em] uppercase text-center space-y-1.5"
         >
-          <div className="font-['Space_Grotesk',monospace] text-[10px] sm:text-xs md:text-sm tracking-[0.28em] text-neutral-300 font-medium uppercase space-y-1 text-center">
-            <p className="tracking-[0.32em] text-white/95">FULL-CYCLE DIGITAL AGENCY</p>
-            <p className="text-white/75">EST. 2024</p>
-            <p className="text-white/65">WORLDWIDE</p>
-          </div>
-
-          {/* Wireframe Geodesic Dome SVG (recreated from the screenshot) */}
-         
+          <p className="text-white/95 font-medium">FULL-CYCLE DIGITAL AGENCY</p>
+          <p className="text-white/60 text-[11px] sm:text-xs tracking-[0.35em]">EST. 2024 &bull; WORLDWIDE</p>
         </motion.div>
       </div>
 
-      {/* 3. Bottom Controls & Capabilities Deck Float Card */}
-      <div className="relative z-20 w-full px-6 sm:px-10 lg:px-14 pb-8 sm:pb-10 flex items-end justify-end">
-        {/* Sound / Atmosphere Toggle (bottom left) */}
-        
+      {/* 3. Balanced Bottom Bar: Sound Toggle (Left) & Capabilities Deck (Right) */}
+      <div className="relative z-20 w-full px-6 sm:px-10 lg:px-14 pb-8 sm:pb-10 flex items-end justify-between gap-4">
+        {/* Sound Toggle (bottom left) */}
+        <button
+          onClick={toggleSound}
+          aria-label="Toggle sound"
+          className="flex items-center gap-2.5 px-3.5 py-2 rounded-full bg-black/50 border border-white/20 backdrop-blur-md text-white/80 hover:text-white hover:border-white/40 transition-all text-xs font-['Space_Grotesk',monospace] uppercase tracking-wider cursor-pointer"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]" />
+          <span>{isMuted ? "Sound Off" : "Sound On"}</span>
+        </button>
 
-        {/* Floating Capabilities Deck Glass Card (bottom right) */}
+        {/* Capabilities Deck Card (bottom right) */}
         <AnimatePresence>
           {deckOpen ? (
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 20 }}
+              initial={{ opacity: 0, scale: 0.94, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 15 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
+              exit={{ opacity: 0, scale: 0.94, y: 15 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
               style={{
                 backgroundImage: `url(${capabilitiesBg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
-              className="rounded-2xl p-4 sm:p-5 min-w-[340px] sm:max-w-[340px] text-left relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] border border-white/30"
+              className="rounded-2xl p-4 sm:p-5 w-[300px] sm:w-[340px] text-left relative overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7)] border border-white/30"
             >
-              {/* Header row: Text & Close (x) button */}
-              <div className="flex items-start justify-between gap-6">
-                <div className="font-['Space_Grotesk',monospace] text-[16px] sm:text-[11px] leading-snug tracking-wider text-neutral-900 font-bold uppercase">
-                  DISCOVER HOW WE CAN HELP
-                  <span className="block text-neutral-800 font-semibold mt-0.5">
-                    — REQUEST OUR CAPABILITIES DECK
-                  </span>
+              {/* Overlay for optimal text readability */}
+              <div className="absolute inset-0 bg-white/75 backdrop-blur-[2px] pointer-events-none" />
+
+              <div className="relative z-10">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="font-['Space_Grotesk',monospace] text-xs sm:text-[13px] leading-snug tracking-wider text-black font-bold uppercase">
+                    DISCOVER HOW WE CAN HELP
+                    <span className="block text-neutral-700 font-semibold mt-0.5 text-[11px] sm:text-xs">
+                      — REQUEST OUR CAPABILITIES DECK
+                    </span>
+                  </div>
+
+                  <button
+                    onClick={() => setDeckOpen(false)}
+                    aria-label="Close capabilities deck widget"
+                    className="w-7 h-7 rounded-full border border-black/20 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-black/10 transition-all text-xs shrink-0 cursor-pointer"
+                  >
+                    ✕
+                  </button>
                 </div>
 
-                {/* Close Button */}
                 <button
-                  onClick={() => setDeckOpen(false)}
-                  aria-label="Close capabilities deck widget"
-                  className="w-8 h-8 rounded-full border border-black/25 flex items-center justify-center text-neutral-800 hover:text-black hover:bg-black/10 transition-all text-xs shrink-0 cursor-pointer"
+                  onClick={() => setModalOpen(true)}
+                  className="mt-4 w-fit bg-black hover:bg-neutral-900 active:scale-95 text-white font-['Space_Grotesk',monospace] font-semibold text-[10px] sm:text-xs tracking-[0.16em] uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2 border border-white/10 shadow-lg transition-all duration-200 cursor-pointer group"
                 >
-                  ✕
+                  <svg
+                    className="w-3.5 h-3.5 text-white group-hover:-translate-y-0.5 transition-transform"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="17 8 12 3 7 8" />
+                    <line x1="12" y1="3" x2="12" y2="15" />
+                  </svg>
+                  <span>GET YOUR COPY</span>
                 </button>
               </div>
-
-              {/* Action Button: GET YOUR COPY */}
-              <button
-                onClick={() => setModalOpen(true)}
-                className="mt-4 w-fit bg-black hover:bg-neutral-900 active:scale-95 text-white font-['Space_Grotesk',monospace] font-semibold text-[10px] sm:text-xs tracking-[0.16em] uppercase px-4 sm:px-5 py-2 sm:py-2.5 rounded-full flex items-center gap-2.5 border border-white/10 shadow-xl transition-all duration-200 cursor-pointer group"
-              >
-                {/* Download / Request Tray Icon */}
-                <svg
-                  className="w-3.5 h-3.5 text-white group-hover:-translate-y-0.5 transition-transform"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                  <polyline points="17 8 12 3 7 8" />
-                  <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                <span>GET YOUR COPY</span>
-              </button>
             </motion.div>
           ) : (
-            /* Minimized pill badge when closed */
             <motion.button
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               onClick={() => setDeckOpen(true)}
-              style={{
-                backgroundImage: `url(${capabilitiesBg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-              className="rounded-full px-4 py-2.5 flex items-center gap-2 text-neutral-900 font-['Space_Grotesk',monospace] font-bold text-xs tracking-wider uppercase border border-white/30 transition-all cursor-pointer shadow-2xl hover:scale-105 active:scale-95"
+              className="rounded-full px-4 py-2.5 flex items-center gap-2 bg-black/60 backdrop-blur-md text-white font-['Space_Grotesk',monospace] font-semibold text-xs tracking-wider uppercase border border-white/30 transition-all cursor-pointer shadow-xl hover:scale-105 active:scale-95"
             >
-              <svg
-                className="w-3.5 h-3.5 text-neutral-900"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="17 8 12 3 7 8" />
-                <line x1="12" y1="3" x2="12" y2="15" />
-              </svg>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF0000]" />
               <span>Capabilities Deck</span>
             </motion.button>
           )}
         </AnimatePresence>
       </div>
 
-      {/* 4. Capabilities Deck Modal */}
+      {/* 5. Capabilities Deck Interactive Modal */}
       <AnimatePresence>
         {modalOpen && (
           <motion.div
@@ -203,10 +187,10 @@ export default function Hero() {
                   DOT TO DESIGN STUDIO
                 </span>
                 <h3 className="font-['Syne',sans-serif] text-2xl sm:text-3xl font-bold uppercase text-white">
-                  Capabilities Deck 2024 / 2025
+                  Capabilities Deck 2025 / 2026
                 </h3>
-                <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed">
-                  Explore our design methodology, case studies in luxury digital experiences, and full-spectrum agency capabilities.
+                <p className="text-neutral-300 text-xs sm:text-sm leading-relaxed font-light">
+                  Explore our design methodology, portfolio of climate and luxury tech ventures, and full-spectrum agency capabilities.
                 </p>
 
                 {isSuccess ? (
@@ -214,7 +198,7 @@ export default function Hero() {
                     <div className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-xl">
                       ✓
                     </div>
-                    <p className="font-['Space_Grotesk',monospace] text-xs tracking-wider uppercase text-white">
+                    <p className="font-['Space_Grotesk',monospace] text-xs tracking-wider uppercase text-white font-semibold">
                       Deck sent to your email!
                     </p>
                     <p className="text-[11px] text-neutral-400">
