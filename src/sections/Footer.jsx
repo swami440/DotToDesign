@@ -23,7 +23,7 @@ const SOCIAL_LINKS = [
 const SANS = "font-['PPNeueMontreal',Helvetica,Arial,sans-serif]";
 const MONO = "font-['Space_Grotesk',monospace]";
 
-const LIME = "#FF0000";
+const RED = "#FF0000";
 const SURFACE = "#000000";
 const BODY_GRAY = "#A6A6A6";
 const LABEL_GRAY = "#d4d4d4";
@@ -380,13 +380,13 @@ export default function Footer({
                     <RollingLink
                       href="#contact"
                       className={`${SANS} mt-1 text-[clamp(1.05rem,1.7vw,1.55rem)] leading-[1.5] tracking-[-0.03em]`}
-                      style={{ color: LIME }}
-                      hoverColor={LIME}
-                      underlineColor={LIME}
+                      style={{ color: RED }}
+                      hoverColor={RED}
+                      underlineColor={RED}
                       trailing={
                         <span
                           className="rolling-arrow-box grid h-6 w-6 place-items-center rounded-[3px] sm:h-7 sm:w-7"
-                          style={{ backgroundColor: LIME, color: SURFACE }}
+                          style={{ backgroundColor: RED, color: SURFACE }}
                         >
                           <ArrowUpRight className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                         </span>
@@ -430,8 +430,8 @@ export default function Footer({
         <div className="grid gap-6 pt-8 md:grid-cols-3 md:items-center">
           <div className="flex items-center gap-3">
             <span className="relative flex h-2 w-2 shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-60" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF0000] opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#FF0000]" />
             </span>
             <span
               className={`${MONO} rounded-[5px] border px-3 py-2 text-[11px] tracking-[0.06em] sm:text-[12px]`}

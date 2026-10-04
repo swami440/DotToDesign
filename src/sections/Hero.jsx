@@ -195,7 +195,7 @@ export default function Hero() {
 
                 {isSuccess ? (
                   <div className="py-6 text-center space-y-2">
-                    <div className="w-12 h-12 mx-auto rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 mx-auto rounded-full bg-[#FF0000]/20 text-[#FF0000] border border-[#FF0000]/40 flex items-center justify-center text-xl">
                       ✓
                     </div>
                     <p className="font-['Space_Grotesk',monospace] text-xs tracking-wider uppercase text-white font-semibold">

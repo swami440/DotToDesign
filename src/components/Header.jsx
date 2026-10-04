@@ -53,11 +53,11 @@ const RING =
   "outline-none focus-visible:ring-2 focus-visible:ring-[#171413]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#eee5e0]";
 
 const CTA =
-  "group flex h-[42px] items-center gap-3 rounded-[4px] bg-[#ff0000] px-4 text-[13px] font-medium tracking-[-0.04em] text-[#171a13] transition-colors hover:bg-[#c9f777]";
+  "group flex h-[42px] items-center gap-3 rounded-[4px] bg-[#ff0000] px-4 text-[13px] font-medium tracking-[-0.04em] text-white transition-colors hover:bg-[#cc0000]";
 
 const ACCENT = "#ff0000";
 
-const DOT = "absolute h-1.5 w-1.5 rounded-full bg-[#ff5b5e]";
+const DOT = "absolute h-1.5 w-1.5 rounded-full bg-[#ff0000]";
 
 
 const readScrollY = () => {
@@ -336,7 +336,7 @@ export default function Header() {
                     hoverColor={ACCENT}
                     underlineColor={ACCENT}
                     className={`text-[30px] leading-[1.16] mt-4 tracking-[-0.06em] ${RING} ${
-                      link.accent ? "text-[#8d6844]" : "text-[#171413]"
+                      link.accent ? "text-[#FF0000]" : "text-[#171413]"
                     }`}
                     badge={
                       link.badge ? (

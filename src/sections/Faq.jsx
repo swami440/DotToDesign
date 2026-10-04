@@ -35,7 +35,7 @@ const INK = "#171413";
 const HEADLINE_GRAY = "#a3a3a3";
 const BODY_GRAY = "#8a8a8a";
 const DIVIDER = "#d9d9d9";
-const LIME = "#ff0000";
+const RED = "#ff0000";
 
 function Arrow({ open }) {
   return (
@@ -108,7 +108,7 @@ export default function Faq({ items = FAQS, defaultOpen = 0, className = "" }) {
                 >
                   <span
                     className={`${MONO} grid h-10 w-10 shrink-0 place-items-center rounded-[4px] text-[12px] font-medium sm:h-12 sm:w-12`}
-                    style={{ backgroundColor: LIME, color: INK }}
+                    style={{ backgroundColor: RED, color: "#ffffff" }}
                   >
                     {item.number}
                   </span>

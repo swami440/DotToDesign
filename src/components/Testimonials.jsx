@@ -15,10 +15,10 @@ const DEFAULT_TESTIMONIAL = {
   video: defaultVideo,
 };
 
-const LIME = "#ff0000";
+const RED = "#ff0000";
 // const CARD = "#e9e9e9";
 const INK = "#171413";
-const MUTED = "#ff0000";
+const MUTED = "#737373";
 const SANS = "font-['PPNeueMontreal',Helvetica,Arial,sans-serif]";
 
 function QuoteMark() {
@@ -118,7 +118,7 @@ export default function Testimonials({
         >
           <span
             className="flex h-8 w-8 items-center justify-center rounded-[4px] sm:h-10 sm:w-10 lg:h-12 lg:w-12 2xl:h-14 2xl:w-14"
-            style={{ backgroundColor: LIME, color: INK }}
+            style={{ backgroundColor: RED, color: "#ffffff" }}
           >
             <QuoteMark />
           </span>
@@ -159,7 +159,7 @@ export default function Testimonials({
             type="button"
             onClick={togglePlayback}
             aria-label={playing ? "Pause testimonial video" : "Play testimonial video"}
-            className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-[8px] transition-colors duration-200 hover:bg-[#FF0000] sm:right-[4%] sm:top-auto sm:bottom-[6%] sm:h-14 sm:w-14 lg:h-16 lg:w-16 2xl:h-[104px] 2xl:w-[104px]"
+            className="absolute right-4 top-4 grid h-12 w-12 place-items-center rounded-[8px] transition-colors duration-200 hover:bg-[#FF0000] hover:text-white sm:right-[4%] sm:top-auto sm:bottom-[6%] sm:h-14 sm:w-14 lg:h-16 lg:w-16 2xl:h-[104px] 2xl:w-[104px]"
             style={{ backgroundColor: "#ffffff", color: '#ff0000' }}
           >
             <PlaybackIcon playing={playing} />
